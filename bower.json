@@ -2,7 +2,8 @@
   "name": "meeting-reminder-app",
   "private": true,
   "dependencies": {
-    "modernizr": "~2.8.3"
+    "modernizr": "~2.8.3",
+    "bootstrap-css-only": "~3.3.4"
   },
   "devDependencies": {
     "chai": "~3.2.0",
