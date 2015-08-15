@@ -19,6 +19,14 @@
       xmlhttp.open('GET', url, true);
       xmlhttp.send();
   }
+
+  function removeElementsByClass(className, parent){
+    var parent = parent || document;
+    var elements = parent.getElementsByClassName(className);
+    while(elements.length > 0){
+        elements[0].parentNode.removeChild(elements[0]);
+    }
+  }
   function processMeetingData(jsonData, date) {
     var date1, date2, todayMeetings, elemList, tempStartTime, i, template;
     jsonData = JSON.parse(jsonData);
@@ -32,6 +40,10 @@
         return currentValue;
       }
     });
+    var dCurrDate = document.getElementById('current-date');
+    dCurrDate.innerHTML = date;
+    var parentContainer = document.getElementById('meeting-container');
+    removeElementsByClass('details', parentContainer);
     elemList = document.getElementsByClassName('meeting-info');
     for(i = 0; i < todayMeetings.length; i++) {
       tempStartTime = new Date(todayMeetings[i].startTime);
@@ -54,16 +66,16 @@
   prev.addEventListener("click", function() {
     var date = new Date();
     date = date.addDays(-1);
-    showMeetingsForDate(date.toString());
+    callAjax("data/sample-data.json", processMeetingData, date);
   });
   next.addEventListener("click", function() {
     var date = new Date();
     date = date.addDays(1);
-    showMeetingsForDate(date.toString());
+    callAjax("data/sample-data.json", processMeetingData, date);
   });
   today.addEventListener("click", function() {
     var date = new Date();
-    showMeetingsForDate(date.toString());
+    callAjax("data/sample-data.json", processMeetingData, date);
   });
   var date = new Date();
   callAjax("data/sample-data.json", processMeetingData, date);
