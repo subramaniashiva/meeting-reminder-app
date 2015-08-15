@@ -16,11 +16,11 @@
               callback(xmlhttp.responseText, params);
           }
       };
-      xmlhttp.open("GET", url, true);
+      xmlhttp.open('GET', url, true);
       xmlhttp.send();
   }
   function processMeetingData(jsonData, date) {
-    var date1, date2, todayMeetings, elemList, tempStartTime, i;
+    var date1, date2, todayMeetings, elemList, tempStartTime, i, template;
     jsonData = JSON.parse(jsonData);
     date = date || (new Date());
     date2 = (new Date(date)).toLocaleDateString();
@@ -35,7 +35,12 @@
     elemList = document.getElementsByClassName('meeting-info');
     for(i = 0; i < todayMeetings.length; i++) {
       tempStartTime = new Date(todayMeetings[i].startTime);
-      elemList[tempStartTime.getHours()].innerHTML = "Meeting is there";
+      template = (document.getElementById('meeting-template')).innerHTML;
+      console.log('Template is ', template);
+      template = template.replace('{{title}}', todayMeetings[i].title);
+      template = template.replace('{{startTime}}', todayMeetings[i].startTime.split(',')[1]);
+      template = template.replace('{{endTime}}', todayMeetings[i].endTime.split(',')[1]);
+      elemList[tempStartTime.getHours()].innerHTML = template;
     }
   }
   function showMeetings(date) {
