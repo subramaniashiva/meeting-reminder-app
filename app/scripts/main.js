@@ -19,18 +19,31 @@
       xmlhttp.open("GET", url, true);
       xmlhttp.send();
   }
-  function processMeetingData(jsonData) {
-    console.log(jsonData);
+  function processMeetingData(jsonData, date) {
+    var date1, date2, todayMeetings;
     jsonData = JSON.parse(jsonData);
-    showMeetings(jsonData[0]);
+    date = date || (new Date());
+    date2 = (new Date(date)).toLocaleDateString();
+    todayMeetings = jsonData.filter(function(currentValue) {
+      date1 = (new Date(currentValue.startTime)).toLocaleString();
+      if(date1.split(',')[0] === date2) {
+        currentValue.startTime = date1;
+        currentValue.endTime = (new Date(currentValue.endTime)).toLocaleString();
+        return currentValue;
+      }
+    });
+    var elemList = document.getElementsByClassName('meeting-info');
+    var startTime, startHour;
+    for(var i = 0; i < todayMeetings.length; i++) {
+      var tempStartTime = new Date(todayMeetings[i].startTime);
+      console.log("time is ", tempStartTime);
+      elemList[tempStartTime.getHours()].innerHTML = "Meeting is there";
+    }
   }
   function showMeetings(date) {
     console.log("start time is ", date);
     var currDate = new Date(date.startTime);
     console.log("current date is ", currDate);
-  }
-  function showMeetingsForDate(dateString) {
-    console.log("The date passed is ", dateString);
   }
   var prev = document.getElementById("prev"),
       next = document.getElementById("next"),
@@ -49,5 +62,6 @@
     var date = new Date();
     showMeetingsForDate(date.toString());
   });
-  callAjax("data/sample-data.json", processMeetingData);
+  var date = new Date();
+  callAjax("data/sample-data.json", processMeetingData, date);
 })();
