@@ -91,7 +91,20 @@
       </div>
       <div class="clear-fix"></div>
     </div>
-    
+    <div id="meeting-template">
+      <div class="details container">
+        <div class="pull-left">
+          <div class="name">{{name}}</div>
+          <div class="start-time">{{startTime}}</div>
+          <div class="end-time">{{endTime}}</div>
+        </div>
+        <div class="pull-right">
+          <button class="btn" id="edit-meeting">Edit</button>
+          <button class="btn" id="edit-delete">Delete</button>
+          <button class="btn" id="cancel-meeting">Cancel</button>
+        </div>
+      </div>
+    </div>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->

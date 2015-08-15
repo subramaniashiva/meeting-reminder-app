@@ -20,7 +20,7 @@
       xmlhttp.send();
   }
   function processMeetingData(jsonData, date) {
-    var date1, date2, todayMeetings;
+    var date1, date2, todayMeetings, elemList, tempStartTime, i;
     jsonData = JSON.parse(jsonData);
     date = date || (new Date());
     date2 = (new Date(date)).toLocaleDateString();
@@ -32,11 +32,9 @@
         return currentValue;
       }
     });
-    var elemList = document.getElementsByClassName('meeting-info');
-    var startTime, startHour;
-    for(var i = 0; i < todayMeetings.length; i++) {
-      var tempStartTime = new Date(todayMeetings[i].startTime);
-      console.log("time is ", tempStartTime);
+    elemList = document.getElementsByClassName('meeting-info');
+    for(i = 0; i < todayMeetings.length; i++) {
+      tempStartTime = new Date(todayMeetings[i].startTime);
       elemList[tempStartTime.getHours()].innerHTML = "Meeting is there";
     }
   }
