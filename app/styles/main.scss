@@ -37,29 +37,46 @@ body {
   .btn-date {
     padding: 4px 12px;
     font-size: 12px;
+    i {
+      margin-left: 5px;
+      margin-right: 5px;
+      font-weight: bold;
+    }
   }
+}
+.calendar {
+  height: 80vh;
+  overflow-y: scroll;
 }
 .meeting-time {
   height: 80px;
   text-align: right;
 }
 .meeting-info {
-  border: 1px solid #eee;
+  border: 1px solid #bbbbbb;
   border-top: none;
-  background: #ccc;
+  background: #eeeeee;
   height: 80px;
   position: relative;
   .details {
     position: absolute;
     background: #666666;
     color: #ffffff;
-    opacity: 0.8;
+    font-size: 12px;
     width: 100%;
     z-index: 1;
-    min-height: 30px;
-    padding: 0 10px;
+    min-height: 20px;
+    padding: 2px 10px;
+    border: 1px solid #fafafa;
+    border-top: none;
+    border-bottom: none;
     .title, .start-time, .end-time {
       margin-right: 15px;
+    }
+    .title {
+      i {
+        margin-right: 10px;
+      }
     }
     .edit-links {
       text-decoration: none;

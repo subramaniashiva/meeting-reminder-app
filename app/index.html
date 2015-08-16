@@ -12,6 +12,8 @@
 
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
     <!-- build:css(.) styles/bootstrap.css -->
     <link rel="stylesheet" href="bower_components/bootstrap-css-only/css/bootstrap.min.css">
     <!-- endbower -->
@@ -35,12 +37,12 @@
           <div class="col-md-1"></div>
           <div class="col-md-11">
             <button class="btn btn-primary btn-date" id="today">Today</button>
-            <button class="btn btn-primary btn-date" id="prev">Prev</button>
-            <button class="btn btn-primary btn-date" id="next">Next</button>
+            <button class="btn btn-primary btn-date" id="prev"><i class="fa fa-angle-left"></i>Prev</button>
+            <button class="btn btn-primary btn-date" id="next">Next<i class="fa fa-angle-right"></i></button>
             <span id="current-date"></span>
           </div>
       </div>
-      <div id="calendar" class="row">
+      <div id="calendar" class="row calendar">
         <div id="time" class="pull-left col-md-2">
           <div class="meeting-time">12 AM</div>
           <div class="meeting-time">1 AM</div>
@@ -50,7 +52,7 @@
           <div class="meeting-time">5 AM</div>
           <div class="meeting-time">6 AM</div>
           <div class="meeting-time">7 AM</div>
-          <div class="meeting-time">8 AM</div>
+          <div class="meeting-time" id="scrollTo">8 AM</div>
           <div class="meeting-time">9 AM</div>
           <div class="meeting-time">10 AM</div>
           <div class="meeting-time">11 AM</div>
@@ -99,7 +101,7 @@
     <div id="meeting-template">
       <div class="details" style="top:{{topValue}}; height: {{heightValue}}; width: {{widthValue}}; left: {{leftValue}}">
         <div class="pull-left">
-          <div class="title pull-left">{{title}}</div>
+          <div class="title pull-left"><i class="fa fa-calendar"></i>{{title}}</div>
           <div class="start-time pull-left">Start Time: {{startTime}}</div>
           <div class="end-time pull-left">End Time: {{endTime}}</div>
         </div>

@@ -113,9 +113,15 @@
       startMins = parseInt(startMins, 10);
       template = template.replace('{{topValue}}', ((startMins/60)*100).toString()+'%');
       // Assigning height based on meeting duration
-      meetingDuration = tempEndTime.getTime() - tempStartTime.getTime();
-      meetingDuration = (meetingDuration/60000);
-      template = template.replace('{{heightValue}}', ((meetingDuration/60)*100).toString()+'%');
+      // If the meeting exceeds the current day, just show that in today
+      // This logic needs to be fixed to show the overflowing meeting in next day
+      if(tempStartTime.getDate() === tempEndTime.getDate()) {
+        meetingDuration = tempEndTime.getTime() - tempStartTime.getTime();
+        meetingDuration = (meetingDuration/60000);
+        template = template.replace('{{heightValue}}', ((meetingDuration/60)*100).toString()+'%');
+      } else {
+        template = template.replace('{{heightValue}}', (100-((startMins/60)*100)).toString()+'%');
+      }
       // If more than one meeting overlaps, change the width and left value
       widthValue = 100;
       leftValue = 0;
@@ -131,6 +137,10 @@
       // Push the template to DOM
       dElemList[tempStartTime.getHours()].innerHTML += template;
     }
+
+    var dCalendar = document.getElementById('calendar');
+    var dScrollTo = document.getElementById('scrollTo');
+    dCalendar.scrollTop = dScrollTo.offsetTop;
   }
   var dPrev = document.getElementById("prev"),
       dNext = document.getElementById("next"),
