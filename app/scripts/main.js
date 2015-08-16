@@ -1,6 +1,7 @@
 // jshint devel:true
+// IIFE for creating a scope specific to this app.
+// This prevents global name space pollution
 (function(){
-  console.log('initiated');
   // Function to add 'n' number of days to the dateObj
   function addDays(dateObj, n) {
     var time = dateObj.getTime();
@@ -38,7 +39,7 @@
     var date1, date2, todayMeetings, dElemList, tempStartTime, tempEndTime, 
     template, startMins, endMins, dDetails, meetingDuration;
     // Dom variables
-    var dCurrDate, dParentContainer;
+    var dCurrDate, dParentContainer, dCalendar, dScrollTo;
     // Variables for funding overlapping meetings
     var sourceStartTime, sourceEndTime, overlappingEvents, compareStartTime,
     compareEndTime, widthValue, leftValue;
@@ -93,6 +94,7 @@
       }
       // If more that one meeting overlap at given time, they must be placed
       // next to each other. So the CSS left value will increase
+      // This logic needs improvment
       for(k = 0; k < overlappingEvents.length; k++) {
           if(!overlappingEvents[k].pushNext) {
             overlappingEvents[k].pushNext = (100/(overlappingEvents.length+1))*(k+1);
@@ -137,14 +139,15 @@
       // Push the template to DOM
       dElemList[tempStartTime.getHours()].innerHTML += template;
     }
-
-    var dCalendar = document.getElementById('calendar');
-    var dScrollTo = document.getElementById('scrollTo');
+    // Scroll into 8 AM by default
+    dCalendar = document.getElementById('calendar');
+    dScrollTo = document.getElementById('scrollTo');
     dCalendar.scrollTop = dScrollTo.offsetTop;
   }
   var dPrev = document.getElementById("prev"),
       dNext = document.getElementById("next"),
       dToday = document.getElementById("today");
+  // Adding event listeneers for prev, next and today buttons
   dPrev.addEventListener("click", function() {
     currentDate = addDays(currentDate, -1);
     callAjax("data/sample-data.json", processMeetingData, currentDate);
