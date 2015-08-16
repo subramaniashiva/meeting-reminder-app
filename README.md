@@ -1,5 +1,5 @@
 # Meeting Reminder App
-An app that manages your meetings and appointments. This is a demo app which reads the meetings and appointments from a JSON and displays in calendar format. You can view the app live here
+An app that manages your meetings and appointments. This is a demo app which reads the meetings and appointments from a JSON and displays in calendar format. View the app (here)[http://subramaniashiva.github.io/meeting-reminder-app/dist/]
 
 Clone the repo and do the following comments
 
