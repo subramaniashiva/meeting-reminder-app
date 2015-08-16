@@ -28,7 +28,8 @@
     }
   }
   function processMeetingData(jsonData, date) {
-    var date1, date2, todayMeetings, elemList, tempStartTime, i, template;
+    var date1, date2, todayMeetings, dElemList, tempStartTime, tempEndTime, i, template, startMins, endMins,
+    dDetails, meetingDuration;
     jsonData = JSON.parse(jsonData);
     date = date || (new Date());
     date2 = (new Date(date)).toLocaleDateString();
@@ -41,42 +42,56 @@
       }
     });
     var dCurrDate = document.getElementById('current-date');
-    dCurrDate.innerHTML = date;
-    var parentContainer = document.getElementById('meeting-container');
-    removeElementsByClass('details', parentContainer);
-    elemList = document.getElementsByClassName('meeting-info');
+    dCurrDate.innerHTML = date.toDateString();
+    var dParentContainer = document.getElementById('meeting-container');
+    removeElementsByClass('details', dParentContainer);
+    dElemList = document.getElementsByClassName('meeting-info');
+    console.log('total number of meetings today ', todayMeetings.length);
     for(i = 0; i < todayMeetings.length; i++) {
       tempStartTime = new Date(todayMeetings[i].startTime);
+      tempEndTime = new Date(todayMeetings[i].endTime);
       template = (document.getElementById('meeting-template')).innerHTML;
-      console.log('Template is ', template);
       template = template.replace('{{title}}', todayMeetings[i].title);
       template = template.replace('{{startTime}}', todayMeetings[i].startTime.split(',')[1]);
       template = template.replace('{{endTime}}', todayMeetings[i].endTime.split(',')[1]);
-      elemList[tempStartTime.getHours()].innerHTML = template;
+
+      startMins = tempStartTime.getMinutes();
+      startMins = parseInt(startMins, 10);
+      template = template.replace('{{topValue}}', ((startMins/60)*100).toString()+'%');
+
+      meetingDuration = tempEndTime.getTime() - tempStartTime.getTime();
+      meetingDuration = (meetingDuration/60000);
+
+      template = template.replace('{{heightValue}}', ((meetingDuration/60)*100).toString()+'%');
+
+      dElemList[tempStartTime.getHours()].innerHTML += template;
+      
+      
+
+      
+      console.log('meeting duration of '+ todayMeetings[i].title, meetingDuration);
+
     }
   }
   function showMeetings(date) {
-    console.log("start time is ", date);
     var currDate = new Date(date.startTime);
     console.log("current date is ", currDate);
   }
-  var prev = document.getElementById("prev"),
-      next = document.getElementById("next"),
-      today = document.getElementById("today");
-  prev.addEventListener("click", function() {
-    var date = new Date();
-    date = date.addDays(-1);
-    callAjax("data/sample-data.json", processMeetingData, date);
+  var dPrev = document.getElementById("prev"),
+      dNext = document.getElementById("next"),
+      dToday = document.getElementById("today");
+  dPrev.addEventListener("click", function() {
+    currentDate = currentDate.addDays(-1);
+    callAjax("data/sample-data.json", processMeetingData, currentDate);
   });
-  next.addEventListener("click", function() {
-    var date = new Date();
-    date = date.addDays(1);
-    callAjax("data/sample-data.json", processMeetingData, date);
+  dNext.addEventListener("click", function() {
+    currentDate = currentDate.addDays(1);
+    callAjax("data/sample-data.json", processMeetingData, currentDate);
   });
-  today.addEventListener("click", function() {
-    var date = new Date();
-    callAjax("data/sample-data.json", processMeetingData, date);
+  dToday.addEventListener("click", function() {
+    currentDate = new Date();
+    callAjax("data/sample-data.json", processMeetingData, currentDate);
   });
-  var date = new Date();
-  callAjax("data/sample-data.json", processMeetingData, date);
+  var currentDate = new Date();
+  callAjax("data/sample-data.json", processMeetingData, currentDate);
 })();

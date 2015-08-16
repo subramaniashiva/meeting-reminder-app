@@ -10,6 +10,8 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+
     <!-- build:css(.) styles/bootstrap.css -->
     <link rel="stylesheet" href="bower_components/bootstrap-css-only/css/bootstrap.min.css">
     <!-- endbower -->
@@ -28,12 +30,15 @@
     <![endif]-->
 
     
-    <div class="container">
-      <div class="row">
-          <button class="btn btn-primary" id="today">Today</button>
-          <button class="btn btn-primary" id="prev">Prev</button>
-          <button class="btn btn-primary" id="next">Next</button>
-          <span id="current-date"></span>
+    <div class="container app">
+      <div class="row btn-holder">
+          <div class="col-md-1"></div>
+          <div class="col-md-11">
+            <button class="btn btn-primary btn-date" id="today">Today</button>
+            <button class="btn btn-primary btn-date" id="prev">Prev</button>
+            <button class="btn btn-primary btn-date" id="next">Next</button>
+            <span id="current-date"></span>
+          </div>
       </div>
       <div id="calendar" class="row">
         <div id="time" class="pull-left col-md-2">
@@ -63,45 +68,45 @@
           <div class="meeting-time">11 PM</div>
         </div>
         <div id="meeting-container" class="pull-left col-md-10">
-          <div class="meeting-info">12 AM</div>
-          <div class="meeting-info">1 AM</div>
-          <div class="meeting-info">2 AM</div>
-          <div class="meeting-info">3 AM</div>
-          <div class="meeting-info">4 AM</div>
-          <div class="meeting-info">5 AM</div>
-          <div class="meeting-info">6 AM</div>
-          <div class="meeting-info">7 AM</div>
-          <div class="meeting-info">8 AM</div>
-          <div class="meeting-info">9 AM</div>
-          <div class="meeting-info">10 AM</div>
-          <div class="meeting-info">11 AM</div>
-          <div class="meeting-info">12 PM</div>
-          <div class="meeting-info">1 PM</div>
-          <div class="meeting-info">2 PM</div>
-          <div class="meeting-info">3 PM</div>
-          <div class="meeting-info">4 PM</div>
-          <div class="meeting-info">5 PM</div>
-          <div class="meeting-info">6 PM</div>
-          <div class="meeting-info">7 PM</div>
-          <div class="meeting-info">8 PM</div>
-          <div class="meeting-info">9 PM</div>
-          <div class="meeting-info">10 PM</div>
-          <div class="meeting-info">11 PM</div>
+          <div class="meeting-info"></div>
+          <div class="meeting-info"></div>
+          <div class="meeting-info"></div>
+          <div class="meeting-info"></div>
+          <div class="meeting-info"></div>
+          <div class="meeting-info"></div>
+          <div class="meeting-info"></div>
+          <div class="meeting-info"></div>
+          <div class="meeting-info"></div>
+          <div class="meeting-info"></div>
+          <div class="meeting-info"></div>
+          <div class="meeting-info"></div>
+          <div class="meeting-info"></div>
+          <div class="meeting-info"></div>
+          <div class="meeting-info"></div>
+          <div class="meeting-info"></div>
+          <div class="meeting-info"></div>
+          <div class="meeting-info"></div>
+          <div class="meeting-info"></div>
+          <div class="meeting-info"></div>
+          <div class="meeting-info"></div>
+          <div class="meeting-info"></div>
+          <div class="meeting-info"></div>
+          <div class="meeting-info"></div>
         </div>
       </div>
       <div class="clear-fix"></div>
     </div>
     <div id="meeting-template">
-      <div class="details">
+      <div class="details" style="top:{{topValue}}; height: {{heightValue}}">
         <div class="pull-left">
-          <div class="title">{{title}}</div>
-          <div class="start-time">{{startTime}}</div>
-          <div class="end-time">{{endTime}}</div>
+          <div class="title pull-left">{{title}}</div>
+          <div class="start-time pull-left">Start Time: {{startTime}}</div>
+          <div class="end-time pull-left">End Time: {{endTime}}</div>
         </div>
         <div class="pull-right">
-          <button class="btn" id="edit-meeting">Edit</button>
-          <button class="btn" id="edit-delete">Delete</button>
-          <button class="btn" id="cancel-meeting">Cancel</button>
+          <a class="edit-links" id="edit-meeting" href="javascript:void(0)">Edit</a>
+          <a class="edit-links" id="edit-delete" href="javascript:void(0)">Delete</a>
+          <a class="edit-links" id="cancel-meeting" href="javascript:void(0)">Cancel</a>
         </div>
       </div>
     </div>
